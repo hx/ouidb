@@ -17,8 +17,6 @@ module Ouidb
           block.clear
         end
       end
-
-      Manufacturer.dump!
     end
 
     FIRST_LINE  = /\A (?<hex>([a-f\d]{2})(-([a-f\d]{2})){2}) \s+ \(hex\) \s+ (?<name>.+?)\s*\n\z/ix
@@ -27,7 +25,7 @@ module Ouidb
     def read_block(lines)
       return unless (match = FIRST_LINE.match(lines.shift))
       hex  = match[:hex].delete('-')
-      name = match[:name]
+      name = match[:name].gsub(/\s+/, ' ')
 
       return unless (match = SECOND_LINE.match(lines.shift))
       hex << match[:start][0...3] if match[:end]

@@ -17,10 +17,38 @@ And then execute:
 Or install it yourself as:
 
     $ gem install ouidb
-
+    
 ## Usage
+    
+To make yourself a data file:
 
-TODO: Write usage instructions here
+    { curl http://standards-oui.ieee.org/oui.txt && \
+      curl http://standards-oui.ieee.org/iab/iab.txt && \
+      curl http://standards-oui.ieee.org/oui36/oui36.txt } | \
+      ouidb_generator > my_data_file.json
+       
+And you're good to go.
+
+```ruby
+require 'ouidb'
+Ouidb.load_file 'my_data_file.json'
+
+# Cutting to the chase, for 99% of users:
+
+Ouidb.manufacturer_name '00:cd:fe:11:22:33'
+# => "Apple, Inc."
+
+# If you want to explore a bit:
+
+range = Ouidb.lookup('00CDFE11:22-33') # Non-hex characters are ignored
+# => #<Range24 cd:fe:00:00:00:00/24 Apple, Inc.>
+
+range.manufacturer.name
+# => "Apple, Inc."
+
+range.manufacturer.ranges.length
+# => 531
+```
 
 ## Development
 

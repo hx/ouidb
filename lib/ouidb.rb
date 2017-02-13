@@ -5,5 +5,19 @@ require 'ouidb/manufacturer'
 require 'pathname'
 
 module Ouidb
-  DB_PATH = Pathname(__FILE__).parent + 'data'
+  class << self
+    def lookup(address)
+      MacRange[address.to_s]
+    end
+
+    def manufacturer_name(address)
+      range = MacRange[address]
+      range && range.manufacturer.name
+    end
+
+    def load_file(path)
+      Manufacturer.load_file! Pathname(path)
+      self
+    end
+  end
 end
