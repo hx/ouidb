@@ -24,7 +24,7 @@ To make yourself a data file:
 
     { curl http://standards-oui.ieee.org/oui.txt && \
       curl http://standards-oui.ieee.org/iab/iab.txt && \
-      curl http://standards-oui.ieee.org/oui36/oui36.txt } | \
+      curl http://standards-oui.ieee.org/oui36/oui36.txt; } | \
       ouidb_generator > my_data_file.json
        
 And you're good to go.
