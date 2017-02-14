@@ -20,14 +20,18 @@ Or install it yourself as:
     
 ## Usage
     
-To make yourself a data file:
+Make yourself a data file:
 
     { curl http://standards-oui.ieee.org/oui.txt && \
       curl http://standards-oui.ieee.org/iab/iab.txt && \
       curl http://standards-oui.ieee.org/oui36/oui36.txt; } | \
-      ouidb_generator > my_data_file.json
+      ouidb > my_data_file.json
        
-And you're good to go.
+And you're good to go. Test it on your local MACs:
+
+    ifconfig | grep -Eoe '[0-9a-f]{2}(:[0-9a-f]{2}){5}' | sort -u | ouidb my_data_file.json
+    
+The Ruby interface is quite simple:
 
 ```ruby
 require 'ouidb'

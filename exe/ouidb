@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'ouidb'
+
+DOC = <<-EOF
+Usage:
+
+#{$0} DATA_FILE MAC_ADDRESS    Show manufacturer for a MAC address
+#{$0} DATA_FILE                Print manufacturers of each MAC given through STDIN
+#{$0}                          Read oui.txt from STDIN and write data file to STDOUT
+EOF
+
+case ARGV.first
+  when nil
+    if STDIN.isatty
+      puts DOC
+    else
+      require 'ouidb/importer'
+      Ouidb::Importer.read STDIN
+      puts Ouidb::Manufacturer.to_json
+    end
+  else
+    Ouidb.load_file ARGV[0]
+    if (mac = ARGV[1])
+      if (name = Ouidb.manufacturer_name(mac))
+        puts name
+      else
+        exit 1
+      end
+    else
+      while (str = STDIN.gets)
+        str.strip!
+        puts "#{str} #{Ouidb.manufacturer_name(str) || '?'}"
+      end
+    end
+end
