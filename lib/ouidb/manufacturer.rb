@@ -1,4 +1,5 @@
 require 'json'
+require 'set'
 
 module Ouidb
   class Manufacturer
