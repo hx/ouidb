@@ -5,9 +5,9 @@ require 'ouidb'
 DOC = <<-EOF
 Usage:
 
-#{$0} DATA_FILE MAC_ADDRESS    Show manufacturer for a MAC address
-#{$0} DATA_FILE                Print manufacturers of each MAC given through STDIN
-#{$0}                          Read oui.txt from STDIN and write data file to STDOUT
+  ouidb DATA_FILE MAC_ADDRESS    Show manufacturer for a MAC address
+  ouidb DATA_FILE                Print manufacturers of each MAC given through STDIN
+  ouidb                          Read oui.txt from STDIN and write data file to STDOUT
 EOF
 
 case ARGV.first
